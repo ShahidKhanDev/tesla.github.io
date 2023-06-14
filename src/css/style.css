@@ -1,0 +1,276 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--ff-poppins);
+}
+
+:root {
+  --ff-poppins: "Poppins", sans-serif;
+  --ff-roboto: "Roboto", sans-serif;
+
+  --height: 40vh;
+}
+
+body {
+  background-color: #121212;
+}
+
+a {
+  text-decoration: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.logo svg {
+  width: 140px;
+}
+
+.menu__icon {
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.container .car {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.container .car.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.container .car img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+  transform: translateX(0px);
+  transition: opacity 0.25s ease-in-out;
+}
+
+.container .car.animate-top img {
+  transform: translateX(100px);
+  animation: animate-car 1s alternate forwards 0.25s;
+}
+
+/* .container .car.hidden img {
+  transform: translateX(0px);
+  animation: animate-car2 1s alternate forwards 0.25s;
+} */
+
+@keyframes animate-car {
+  0% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes animate-car2 {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+.container .car.animate-top::after {
+  content: "";
+  position: absolute;
+  top: 2%;
+  right: -10%;
+  background-color: var(--clr);
+  width: 45vh;
+  height: var(--height);
+  z-index: -1;
+  animation: animate-height 1s ease-in-out;
+}
+
+.container .car.animate-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 16%;
+  right: -10%;
+  background-color: var(--clr);
+  width: 45vh;
+  height: var(--height);
+  z-index: -1;
+  animation: animate-height 1.5s ease-in-out;
+}
+
+@keyframes animate-height {
+  0% {
+    height: 0vh;
+  }
+  100% {
+    height: var(--height);
+  }
+}
+
+.container .car__data {
+  position: absolute;
+  top: 30%;
+  left: 3rem;
+  color: #fff;
+}
+
+.car__data .car__name {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+  font-family: var(--ff-roboto);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+}
+
+.car__data .car__name .inner .car__model {
+  position: absolute;
+  bottom: -78%;
+  left: 36.5%;
+  transition: 0.25s ease-in-out;
+}
+
+.car__data .car__name .inner .car__model.show {
+  bottom: 0rem;
+}
+
+.car__data .car__desc {
+  max-width: 17rem;
+  font-size: 0.85rem;
+  margin: 0.5rem;
+  opacity: 0;
+  transition: 0.25s ease-in-out;
+}
+
+.car__data .car__desc.show {
+  opacity: 1;
+  transition: 0.25s ease-in-out;
+}
+
+.car__data .car__desc span {
+  opacity: 0;
+  transition: 0.25s var(--delay) ease-in-out;
+}
+
+.car__data .car__desc.show span {
+  opacity: 1;
+}
+
+.model__nav {
+  position: absolute;
+  top: 30%;
+  right: 3rem;
+  color: #fff;
+}
+
+.model__nav .nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.model__nav .nav__list .nav__item {
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: right;
+  font-weight: 500;
+  transition: all 0.25s ease-in-out;
+  user-select: none;
+}
+
+.model__nav .nav__list .nav__item.active {
+  color: var(--clr);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .container .car::after {
+    display: none;
+  }
+
+  .container .car__data {
+    display: none;
+  }
+
+  .model__nav {
+    top: 85%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 8vh;
+  }
+
+  .model__nav .nav__list {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .model__nav .nav__list .nav__item {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1.5rem 1rem;
+  }
+
+  .container .car img {
+    width: 500px;
+  }
+}
+
+@media (max-width: 530px) {
+  .container .car img {
+    width: 300px;
+  }
+
+  .model__nav .nav__list {
+    gap: 1rem;
+  }
+
+  .model__nav .nav__list .nav__item {
+    font-size: 0.7rem;
+  }
+
+  .model__nav .nav__list .nav__item.active {
+    color: var(--clr);
+    font-size: 1rem;
+  }
+}

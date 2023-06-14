@@ -68,30 +68,51 @@ allNavItems.forEach((item, i) => {
   item.setAttribute("data-image", carImagesArr[i]);
 
   item.addEventListener("click", () => {
+    // if the nav item has active class then do nothing
     if (item.classList.contains("active")) return;
+
+    // remove the active class from the element that currently has it
     modelNavList.querySelector(".active").classList.remove("active");
+
+    // add the active class to the clicked element after a 100 millisecond delay
     setTimeout(() => {
       item.classList.add("active");
     }, 100);
 
+    // Check if the current item does not have the "active" class
     if (!item.classList.contains("active")) {
+      // Get the value of the "data-image" attribute from the current item
       let carImg = item.getAttribute("data-image");
+
+      // Remove certain classes from elements to reset their states
       carModelElem.classList.remove("show");
       carDescElem.classList.remove("show");
       carImageParent.classList.remove("animate-top");
       carImageParent.classList.remove("animated");
 
+      // Set the source of the car image element to a specific path based on the carImg value
       carImage.src = `src/images/${carImg}.png`;
+
+      // Set the initial opacity and visibility of the car image
       carImage.style.opacity = "0";
       carImage.style.visibility = "hidden";
 
+      // Set the value of currentCarColor to the corresponding value from the carColors array at index i
       currentCarColor = carColors[i];
+
+      // Set a custom CSS variable "--clr" to the value of currentCarColor for the carImageParent element
       carImageParent.style.setProperty("--clr", currentCarColor);
 
+      // Delay the execution of the following code by 500 milliseconds
       setTimeout(() => {
+        // Set the inner HTML of carModelElem to the corresponding value from the modelArr array at index i
         carModelElem.innerHTML = modelArr[i];
+
+        // Make the car image visible by setting opacity to 1 and visibility to visible
         carImage.style.opacity = "1";
         carImage.style.visibility = "visible";
+
+        // Add certain classes to elements to apply animations and show them on the page
         carModelElem.classList.add("show");
         carDescElem.classList.add("show");
         carImageParent.classList.add("animate-top");
